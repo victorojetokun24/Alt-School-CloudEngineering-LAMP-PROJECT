@@ -27,7 +27,7 @@ end
    config.vm.network "forwarded_port", guest: 80, host: 8080, auto_correct: true
    config.vm.usable_port_range = (8000..9000)
 
-   config.vm.network "private_network", ip: "192.168.33.10", type:"dhcp"
+   config.vm.network "private_network", ip: "192.168.33.15", type:"dhcp"
 
    config.vm.network "public_network"
 
