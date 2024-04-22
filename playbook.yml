@@ -1,0 +1,38 @@
+---
+- name: EXECUTING BASH SCRIPT FILE (LARAVEL_EXAM.SH) TO DEPLOY LARAVEL WEB APPLICATION AND CRON JOB TASK ON UBUNTU APACHE SLAVE SERVER
+  hosts: 192.168.33.20
+  become: true
+
+  tasks:
+   - name: Copying script to remote ubuntu apache server (slave)
+     copy:
+      src: /home/vagrant/server_deploy/laravel_exam.sh
+      dest: /home/vagrant/
+      mode: 0755  
+
+   - name: Executing the laravel_exam.sh on remote ubuntu apache server (slave) 
+     command: /home/vagrant/laravel_exam.sh
+
+   - name: Verifying application accessibility deployed on remote ubuntu apache server (slave)
+     uri:
+       url: "http://192.168.33.20"
+       return_content: yes
+     register: result
+
+   - name: Print application accessibity result
+     debug:
+        msg: "Application is accessible."
+     when: result.status == 200
+
+   - name: Creating Server uptime log file on remote ubuntu apache server (slave)
+     file:
+      path: /var/log/uptime.log
+      state: touch
+
+   - name: Scheduling cron job task to check uptime on remote ubuntu apache server (slave)
+     cron:
+      name: Checking Server Uptime
+      minute: "0"
+      hour: "0"
+      job: uptime >> /var/log/uptime.log
+
