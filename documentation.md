@@ -3,9 +3,12 @@
 This guide provides detailed instructions for deploying a Laravel web application on a remote Ubuntu server acting as a slave to a master server. The master server manages the deployment process, while the slave server hosts the Laravel application. We'll use a combination of bash script and Ansible playbook for the deployment.
 **Prerequisites:**
 1. Virtual machine/box and vagrant installed
-1. Master server and remote slave server configured and deployed via vagrant
+1. Master server (ubuntu) and remote slave server (ubuntu) configured and deployed via vagrant
+1. Provisioning of ansible in the vagrant file 
 1. Laravel application codebase stored in a Git repository
 1. SSH access to both the master and slave servers
+
+**The Following are the steps taken to complete the deployment process:**
 
 ### Vagrant master vagrantfile
 ---
@@ -39,6 +42,7 @@ end
   # documentation for more information about their specific syntax and use.
    config.vm.provision "shell", inline: <<-SHELL
      apt-get update -y
+  #  Installing Ansible for automation
      sudo apt install ansible -y
      sudo apt install ansible-lint -y
   #   apt-get install -y apache2
@@ -76,19 +80,20 @@ end
   # documentation for more information about their specific syntax and use.
   # config.vm.provision "shell", inline: <<-SHELL
   #   apt-get update -y
-  #   sudo apt install ansible -y
-  #   sudo apt install ansible-lint -y
   #   apt-get install -y apache2
   # SHELL
 end
 ```
 ### Booting up machines
-open up virtual box and and open two git bash terminal to acces the vagrant master amd vagrant slave. its required after configuring the vagrantfiles for both instances inside git bash that you validate the vagrantfile and boot up the vagrant image for both vagrant instances with the following commands: 
+open up virtual box and and open two git bash terminal to acces the vagrant master (ubuntu) server instance amd vagrant slave (ubuntu) server instance. its required after configuring the vagrantfiles for both instances inside git bash that you validate the vagrantfile and boot up the vagrant image for both vagrant instances with the following commands: 
 
 Master directory
 1. `vgrant validate`
 1. `Vagrant up`
 1. `vagrant ssh`
+
+To have ansibile installed on the master slave (ubuntu) server, the command as `sudo apt install ansible -y`, `ansible --version` to validate the version of ansible installed and `which ansible` to access the binary path where ansible is installed.
+Note: in the vagrantfille for the master ubuntu server, ansible has been provisioned to be installed when booting up the ubuntu image instances, so there wont be need to use the `sudo apt install ansible -y` to install ansible, `ansible --version` or `which ansible` could be use to validate if ansible has be installed.
 
 Slave directory
 1. `vagrant validate`
