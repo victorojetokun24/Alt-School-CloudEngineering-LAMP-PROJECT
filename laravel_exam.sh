@@ -113,19 +113,19 @@ DB_USERNAME="victorojetokun"
 DB_PASSWORD="09032111796"
 
 # Set the path to your .env file
-ENV_FILE="/var/www/laravel/"
+ENVFILE="/var/www/laravel/"
 
 # Check if .env file exists
-if [ ! -f "$ENV_FILE" ]; then
+if [ ! -f "$ENVFILE" ]; then
   echo "Error: .env file not found."
   exit 0
 else
 # MODIFIYING THE FILE SED -i TO EDIT LINE 
 # Alter the .env file
   sed -i "s/DB_HOST=.*/DB_HOST=${DB_HOST}/" ${ENV_FILE}
-  sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" ${ENV_FILE}
-  sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" ${ENV_FILE}
-  sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" ${ENV_FILE}
+  sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" ${ENVFILE}
+  sed -i "s/DB_USERNAME=.*/DB_USERNAME=${DB_USERNAME}/" ${ENVFILE}
+  sed -i "s/DB_PASSWORD=.*/DB_PASSWORD=${DB_PASSWORD}/" ${ENVFILE}
 
   exit 1
  fi
