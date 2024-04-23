@@ -56,6 +56,7 @@ sudo service apache2 restart
 echo "process completed #####################################"
 }
 
+# USING THE CAT/EOF COMMAND TO EXECUTE CREATION OF DATABASE, USER AND GRANTING PRIVILEGES
 databse_user_setup(){
 MYSQL_COMMANDS=$(cat <<EOF
 # CREATE USER 
@@ -154,7 +155,7 @@ sudo chown vagrant:vagrant laravel.conf
 # CHANGING FILE TO WRITE PERMISSSION
 chmod +w laravel.conf
 
-# MODIFING LARAVEL CONF FILE TO POINT TO THE PUBLIC DIR OF THE LARAVEL APPLICATION
+# MODIFING LARAVEL CONF FILE USING CAT<< EOF COMMAND TO MODIFY THE FILE AND POINT TO THE PUBLIC DIR OF THE LARAVEL APPLICATION
 sudo cat<<EOF >laravel.conf
 <VirtualHost *:80>
 ServerName 192.168.33.20
