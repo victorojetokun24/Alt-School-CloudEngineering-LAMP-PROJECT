@@ -214,6 +214,7 @@ sudo service apache2 restart
 echo "process completed #####################################"
 }
 
+# USING THE CAT/EOF COMMAND TO EXECUTE CREATION OF DATABASE, USER AND GRANTING PRIVILEGES 
 databse_user_setup(){
 MYSQL_COMMANDS=$(cat <<EOF
 # CREATE USER
@@ -278,7 +279,7 @@ if [ ! -f "$ENV_FILE" ]; then
   echo "Error: .env file not found."
   exit 0
 else
-# MODIFIYING THE FILE SED -i TO EDIT LINE
+# MODIFIYING THE FILE USING SED -i COMMAND TO EDIT LINE
 # Alter the .env file
   sed -i "s/DB_HOST=.*/DB_HOST=${DB_HOST}/" ${ENV_FILE}
   sed -i "s/DB_DATABASE=.*/DB_DATABASE=${DB_DATABASE}/" ${ENV_FILE}
@@ -312,7 +313,7 @@ sudo chown vagrant:vagrant laravel.conf
 # CHANGING FILE TO WRITE PERMISSSION
 chmod +w laravel.conf
 
-# MODIFING LARAVEL CONF FILE TO POINT TO THE PUBLIC DIR OF THE LARAVEL APPLICATION
+# MODIFING LARAVEL CONF FILE USING CAT<< EOF COMMAND TO MODIFY THE FILE AND POINT TO THE PUBLIC DIR OF THE LARAVEL APPLICATION
 sudo cat<<EOF >laravel.conf
 <VirtualHost *:80>
 ServerName 192.168.33.20
