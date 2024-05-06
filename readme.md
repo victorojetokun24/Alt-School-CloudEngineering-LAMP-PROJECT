@@ -1,7 +1,23 @@
 ## DEPLOYING LAMP STACK VIA BASHSCRIPT AND ANSIBLE PLAYBOOK ON A REMOTE UBUNTU APACHE SERVER (SLAVE) 
 
 This guide provides detailed instructions for deploying a Laravel web application on a remote Ubuntu server acting as a slave to a master server. The master server manages the deployment process, while the slave server hosts the Laravel application. We'll use a combination of bash script and Ansible playbook for the deployment.
-**Prerequisites:**
+
+**Table of Contents:**
+1. [Prerequisites](#prerequisites)
+1. [Setting up Vagrant Master Vagrantfile](#vagrant-master-vagrantfile)
+1. [Setting up Vagrant Slave Vagrantfile](#vagrant-slave-vagrantfile)
+1. [Starting up Machines](#booting-up-machines)
+1. [SSH from Vagrant@master to Vagrant@slave](#ssh-from-vagrantmaster-to-vagrantslave)
+1. [Creation of project directory and files](#creation-of-project-directory-and-files)
+1. [inventory file configuration](#inventory-configuration)
+1. [Inventory outome](#inventory-outcome)
+1. [Bash Script automation deployment Lamp stack](#creating-bash-script-to-automate-the-deployment-lamp-stack)
+1. [Ansible plabook config and deployment](#ansible-playbook-configuration-and-deployment)
+1. [Final Outcome](#final-outcome-screenshot)
+1. [Ubuntu apache slave server outcome via chrome browser](#ubuntu-apache-slave-server-output-via-chrome-broswer)
+1. [Conclusion](#conclusion)
+
+### Prerequisites:
 1. Virtual machine/box and vagrant installed
 1. Master server (ubuntu) and remote slave server (ubuntu) configured and deployed via vagrant
 1. Provisioning of ansible in the vagrant file 
@@ -124,7 +140,7 @@ The vagrant@master can therefore ssh into the nodes using username of the slave 
 `vagrant@master:~$ ssh vagrant@192.168.33.20`
 - changes to: `vagrant@slave:~$`
 
-### Creation of project directory and files inside the directory
+### Creation of project directory and files
 ---
 Create a directory inside called server_deploy in the vagrant@master machine containing the following files, playbook.yml, laravel_exam.sh, and inventory.
 The dir is created with the command:
@@ -150,10 +166,11 @@ Insert vagrant@slave machines ip address into the inventory file by ruuning the 
 pinging host machine with this command:
 `vagrant@master:~/server_deploy$ ansible all -m ping -i inventory`
 
-### outcome: SUCCESS
+### Inventory outcome
 ![pinging host](./ping.png)
 
-### Creating Bash script to automate the deployment LAMP (Linux, Apache, MySQL, PHP) stack
+### Creating Bash script to automate the deployment LAMP stack
+
 The bash script will automate the installation of the lamp stack and deployment of laravel application on the ubuntu apache server slave.
 
 The bash script will is scripted as follows:
@@ -393,7 +410,7 @@ main
 ```
 The above script gives a detailed step by step procedure in deploying a laravel application with the use of bash script by automating all processes.
 
-### Ansible playbook.yml comfiguration and deployment
+### Ansible playbook configuration and deployment
 ---
 This playbook will perform all the specified tasks via the laravel_exam.sh script on the remote host machine via automation.
 
@@ -449,17 +466,16 @@ The bash script is written as follows:
 
 Executing the script with the command: `ansible-playbook -i inventory playbook.yml`
 
-### outcome screenshots:
+### Final outcome screenshot:
 
 ![playbook-results](./playbook-outcome.png)
 
-### ubuntu apache Slave server output via chrome broswer
+### Ubuntu apache Slave server output via chrome broswer
 ---
 
-#### Output via chrome browser
-
-`url: 192.168.33.20` 
-
+The laravel application is accessible via the browser with the url: 
+`http://192.168.33.20`
+ 
 ![plabook](./landing%20result.png)
 
 ## Conclusion
